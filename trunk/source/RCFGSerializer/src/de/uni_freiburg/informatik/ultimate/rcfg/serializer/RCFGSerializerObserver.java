@@ -27,20 +27,36 @@
 
 package de.uni_freiburg.informatik.ultimate.rcfg.serializer;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
 import de.uni_freiburg.informatik.ultimate.core.model.models.IElement;
 import de.uni_freiburg.informatik.ultimate.core.model.models.ModelType;
 import de.uni_freiburg.informatik.ultimate.core.model.observers.IUnmanagedObserver;
 import de.uni_freiburg.informatik.ultimate.core.model.services.ILogger;
+import de.uni_freiburg.informatik.ultimate.core.model.services.IUltimateServiceProvider;
 import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.RootNode;
+import de.uni_freiburg.informatik.ultimate.rcfg.serializer.preferences.PreferenceInitializer;
 
 public class RCFGSerializerObserver implements IUnmanagedObserver {
 
 	private final ILogger mLogger;
-	
-	public RCFGSerializerObserver(ILogger logger) {
-		mLogger = logger;
+	private final IUltimateServiceProvider mServices;
+
+	public RCFGSerializerObserver(final IUltimateServiceProvider services) {
+		mServices = services;
+		mLogger = services.getLoggingService().getLogger(Activator.PLUGIN_ID);
 	}
-	
+
 	@Override
 	public void init(ModelType modelType, int currentModelIndex, int numberOfModels) throws Throwable {
 		// not required
@@ -58,14 +74,88 @@ public class RCFGSerializerObserver implements IUnmanagedObserver {
 
 	@Override
 	public boolean process(IElement root) throws Throwable {
-		
-		mLogger.debug("Root element type is: " + root.getClass().getSimpleName());
-		
+
 		if (root instanceof RootNode) {
+
+			final PrintWriter writer = openTempFile();
+			if (writer != null) {
+				final RootNode rootNode = (RootNode) root;
+				final Document template = readTemplate();
+				final RCFGOutput output = new RCFGOutput(writer, template, mLogger);
+				output.printRCFG(rootNode);
+				writer.close();
+			}
 			return false;
 		}
-		
+
+		mLogger.debug("Root element type is: " + root.getClass().getSimpleName() + ", expected RootNode");
+
 		return true;
+	}
+
+	private Document readTemplate() {
+		final String filepath;
+		final File file;
+		final Document dom;
+		final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		try {
+
+			filepath = mServices.getPreferenceProvider(Activator.PLUGIN_ID)
+					.getString(PreferenceInitializer.TEMPLATE_FILE_LABEL);
+			file = new File(filepath);
+
+			if (!(file.exists() && file.isFile() && file.canRead())) {
+				mLogger.fatal("Cannot read file: " + file.getAbsolutePath());
+				return null;
+			}
+			DocumentBuilder db = dbf.newDocumentBuilder();
+
+			dom = db.parse(file);
+
+			return dom;
+
+		} catch (final IOException e) {
+			mLogger.fatal("Cannot open file", e);
+			return null;
+		} catch (ParserConfigurationException e) {
+			// e.printStackTrace();
+			mLogger.fatal("Cannot create DocumentBuilder", e);
+			return null;
+		} catch (SAXException e) {
+			// e.printStackTrace();
+			mLogger.fatal("Cannot create DocumentBuilder", e);
+			return null;
+		}
+	}
+
+	private PrintWriter openTempFile() {
+
+		String path;
+		String filename;
+		File file;
+
+		path = mServices.getPreferenceProvider(Activator.PLUGIN_ID).getString(PreferenceInitializer.DUMP_PATH_LABEL);
+
+		try {
+			filename = mServices.getPreferenceProvider(Activator.PLUGIN_ID)
+					.getString(PreferenceInitializer.RCFG_OUTPUT_FILE_NAME_LABEL);
+			file = new File(path + File.separatorChar + filename);
+			if ((!file.isFile() || !file.canWrite()) && file.exists()) {
+				mLogger.warn("Cannot write to: " + file.getAbsolutePath());
+				return null;
+			}
+
+			if (file.exists()) {
+				mLogger.info("File already exists and will be overwritten: " + file.getAbsolutePath());
+			}
+			file.createNewFile();
+			mLogger.info("Writing to file " + file.getAbsolutePath());
+			return new PrintWriter(new FileWriter(file));
+
+		} catch (final IOException e) {
+			mLogger.fatal("Cannot open file", e);
+			return null;
+		}
 	}
 
 }

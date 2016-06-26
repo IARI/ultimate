@@ -34,8 +34,12 @@ import de.uni_freiburg.informatik.ultimate.core.model.preferences.UltimatePrefer
 
 public class PreferenceInitializer extends UltimatePreferenceInitializer {
 
+	public static final String TEMPLATE_FILE_LABEL = "Template:";
+	private static final String TEMPLATE_FILE_DEFAULT = "";
 	public static final String RCFG_OUTPUT_FILE_NAME_LABEL = "RCFG Output file name:";
-	private static final String RCFG_OUTPUT_FILE_NAME_DEFAULT = "rcfg.xml";
+	private static final String RCFG_OUTPUT_FILE_NAME_DEFAULT = "rcfg.gexf";
+	public static final String DUMP_PATH_LABEL = "Dump path:";
+	private static final String DUMP_PATH_DEFAULT = System.getProperty("java.io.tmpdir");
 
 	public PreferenceInitializer() {
 		super(Activator.PLUGIN_ID, Activator.PLUGIN_NAME);
@@ -44,8 +48,9 @@ public class PreferenceInitializer extends UltimatePreferenceInitializer {
 	@Override
 	protected UltimatePreferenceItem<?>[] initDefaultPreferences() {
 		return new UltimatePreferenceItem<?>[] {
-				new UltimatePreferenceItem<String>(RCFG_OUTPUT_FILE_NAME_LABEL,
-						RCFG_OUTPUT_FILE_NAME_DEFAULT, PreferenceType.String),
-		};
+				new UltimatePreferenceItem<String>(TEMPLATE_FILE_LABEL, TEMPLATE_FILE_DEFAULT, PreferenceType.File),
+				new UltimatePreferenceItem<String>(DUMP_PATH_LABEL, DUMP_PATH_DEFAULT, PreferenceType.Directory),
+				new UltimatePreferenceItem<String>(RCFG_OUTPUT_FILE_NAME_LABEL, RCFG_OUTPUT_FILE_NAME_DEFAULT,
+						PreferenceType.String), };
 	}
 }

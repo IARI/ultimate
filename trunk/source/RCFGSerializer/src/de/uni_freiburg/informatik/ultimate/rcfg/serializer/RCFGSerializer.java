@@ -89,7 +89,7 @@ public class RCFGSerializer implements IOutput {
 
 	@Override
 	public List<IObserver> getObservers() {
-		mObserver = new RCFGSerializerObserver(mLogger);
+		mObserver = new RCFGSerializerObserver(mServices);
 		return Collections.singletonList(mObserver);
 	}
 
@@ -111,7 +111,6 @@ public class RCFGSerializer implements IOutput {
 	@Override
 	public void setServices(IUltimateServiceProvider services) {
 		mServices = services;
-		mLogger = mServices.getLoggingService().getLogger(Activator.PLUGIN_ID);
 	}
 
 	@Override
