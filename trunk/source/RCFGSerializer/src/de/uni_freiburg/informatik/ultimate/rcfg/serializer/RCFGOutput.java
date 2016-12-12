@@ -21,8 +21,8 @@ import org.w3c.dom.Node;
 
 import de.uni_freiburg.informatik.ultimate.core.model.services.ILogger;
 import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.CodeBlock;
-import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.RCFGEdge;
-import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.RCFGNode;
+import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IcfgEdge;
+import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IcfgLocation;
 import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.RootNode;
 
 public class RCFGOutput {
@@ -68,8 +68,8 @@ public class RCFGOutput {
 		Element xmlNode, xmlEdge;
 		String label, id;
 		int i = 0, j = 0;
-		Map<RCFGNode, String> nodeMap = new HashMap<>();
-		for (RCFGNode node : graph.getNodes()) {
+		Map<IcfgLocation, String> nodeMap = new HashMap<>();
+		for (IcfgLocation node : graph.getNodes()) {
 			label = node.toString();
 			id = "n" + i++;
 			nodeMap.put(node, id);
@@ -78,7 +78,7 @@ public class RCFGOutput {
 			xmlNode.setAttribute("label", label);
 			nodes.appendChild(xmlNode);
 		}
-		for (RCFGEdge edge : graph.getEdges()) {
+		for (IcfgEdge edge : graph.getEdges()) {
 			if (edge instanceof CodeBlock) {
 				CodeBlock cb = (CodeBlock) edge;
 				label = cb.getPrettyPrintedStatements();

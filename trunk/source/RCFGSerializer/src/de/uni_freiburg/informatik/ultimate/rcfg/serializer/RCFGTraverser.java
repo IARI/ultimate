@@ -5,19 +5,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 import de.uni_freiburg.informatik.ultimate.core.model.models.IElement;
-import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.RCFGEdge;
-import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.RCFGNode;
+import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IcfgEdge;
+import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IcfgLocation;
 import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.RootNode;
 
 public class RCFGTraverser {
-	private ArrayList<RCFGNode> mNodes = new ArrayList<>();
-	private ArrayList<RCFGEdge> mEdges = new ArrayList<>();
+	private ArrayList<IcfgLocation> mNodes = new ArrayList<>();
+	private ArrayList<IcfgEdge> mEdges = new ArrayList<>();
 
-	public Iterable<RCFGNode> getNodes() {
+	public Iterable<IcfgLocation> getNodes() {
 		return mNodes;
 	}
 
-	public Iterable<RCFGEdge> getEdges() {
+	public Iterable<IcfgEdge> getEdges() {
 		return mEdges;
 	}
 
@@ -28,18 +28,18 @@ public class RCFGTraverser {
 		traverse(root);
 	}
 
-	public void traverse(RCFGNode node) {
+	public void traverse(IcfgLocation node) {
 		mSeen.add(node);
 		mNodes.add(node);
-		for (RCFGEdge rcfgEdge : node.getOutgoingEdges()) {
-			if (!mSeen.contains(rcfgEdge)) {
-				mSeen.add(rcfgEdge);
-				mEdges.add(rcfgEdge);
+		for (IcfgEdge IcfgEdge : node.getOutgoingEdges()) {
+			if (!mSeen.contains(IcfgEdge)) {
+				mSeen.add(IcfgEdge);
+				mEdges.add(IcfgEdge);
 			}
 		}
-		for (RCFGNode rcfgNode : node.getOutgoingNodes()) {
-			if (!mSeen.contains(rcfgNode)) {
-				traverse(rcfgNode);
+		for (IcfgLocation IcfgLocation : node.getOutgoingNodes()) {
+			if (!mSeen.contains(IcfgLocation)) {
+				traverse(IcfgLocation);
 			}
 		}
 	}
