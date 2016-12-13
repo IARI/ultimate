@@ -5,9 +5,9 @@ Bundle-SymbolicName: de.uni_freiburg.informatik.ultimate.rcfg.serializer;singlet
 Bundle-Version: 0.0.1
 Require-Bundle: Library-UltimateCore,
  Library-log4j,
+ Library-ModelCheckerUtils,
  UltimateCore,
- de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder;bundle-version="0.0.1",
- Library-ModelCheckerUtils
+ de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder
 Bundle-ActivationPolicy: lazy
 Export-Package: de.uni_freiburg.informatik.ultimate.rcfg.serializer
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
