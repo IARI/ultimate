@@ -20,10 +20,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import de.uni_freiburg.informatik.ultimate.core.model.services.ILogger;
-import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.CodeBlock;
+import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IIcfg;
 import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IcfgEdge;
 import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IcfgLocation;
-import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.RootNode;
+import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.CodeBlock;
 
 public class ICFGOutput {
 	// private static final String LINEBREAK =
@@ -41,7 +41,7 @@ public class ICFGOutput {
 		this.mLogger = mLogger;
 	}
 
-	public void printRCFG(RootNode root) {
+	public void printRCFG(IIcfg<IcfgLocation> root) {
 
 		XPathFactory xPathfactory = XPathFactory.newInstance();
 		XPath xpath = xPathfactory.newXPath();

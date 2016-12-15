@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import de.uni_freiburg.informatik.ultimate.core.model.models.IElement;
+import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IIcfg;
 import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IcfgEdge;
 import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IcfgLocation;
-import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.RootNode;
 
 public class ICFGTraverser {
 	private ArrayList<IcfgLocation> mNodes = new ArrayList<>();
@@ -24,8 +24,8 @@ public class ICFGTraverser {
 	// Map<IElement, String> seenList = new HashMap<>();
 	Set<IElement> mSeen = new HashSet<>();
 
-	public ICFGTraverser(RootNode root) {
-		traverse(root);
+	public ICFGTraverser(IIcfg<IcfgLocation> root) {
+		root.getInitialNodes().forEach(this::traverse);
 	}
 
 	public void traverse(IcfgLocation node) {

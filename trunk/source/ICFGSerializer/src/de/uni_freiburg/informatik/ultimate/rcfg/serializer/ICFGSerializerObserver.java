@@ -44,7 +44,8 @@ import de.uni_freiburg.informatik.ultimate.core.model.models.ModelType;
 import de.uni_freiburg.informatik.ultimate.core.model.observers.IUnmanagedObserver;
 import de.uni_freiburg.informatik.ultimate.core.model.services.ILogger;
 import de.uni_freiburg.informatik.ultimate.core.model.services.IUltimateServiceProvider;
-import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.RootNode;
+import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IIcfg;
+import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IcfgLocation;
 import de.uni_freiburg.informatik.ultimate.rcfg.serializer.preferences.PreferenceInitializer;
 
 public class ICFGSerializerObserver implements IUnmanagedObserver {
@@ -74,12 +75,11 @@ public class ICFGSerializerObserver implements IUnmanagedObserver {
 
 	@Override
 	public boolean process(IElement root) throws Throwable {
-
-		if (root instanceof RootNode) {
+		if (root instanceof IIcfg) {
 
 			final PrintWriter writer = openTempFile();
 			if (writer != null) {
-				final RootNode rootNode = (RootNode) root;
+				final IIcfg<IcfgLocation> rootNode = (IIcfg<IcfgLocation>) root;
 				final Document template = readTemplate();
 				final ICFGOutput output = new ICFGOutput(writer, template, mLogger);
 				output.printRCFG(rootNode);
