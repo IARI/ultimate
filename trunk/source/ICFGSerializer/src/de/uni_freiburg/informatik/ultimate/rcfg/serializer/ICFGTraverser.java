@@ -9,7 +9,7 @@ import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IcfgE
 import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IcfgLocation;
 import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.RootNode;
 
-public class RCFGTraverser {
+public class ICFGTraverser {
 	private ArrayList<IcfgLocation> mNodes = new ArrayList<>();
 	private ArrayList<IcfgEdge> mEdges = new ArrayList<>();
 
@@ -24,7 +24,7 @@ public class RCFGTraverser {
 	// Map<IElement, String> seenList = new HashMap<>();
 	Set<IElement> mSeen = new HashSet<>();
 
-	public RCFGTraverser(RootNode root) {
+	public ICFGTraverser(RootNode root) {
 		traverse(root);
 	}
 

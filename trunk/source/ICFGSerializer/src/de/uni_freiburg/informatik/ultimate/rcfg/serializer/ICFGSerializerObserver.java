@@ -2,26 +2,26 @@
  * Copyright (C) 2015 Marius Greitschus (greitsch@informatik.uni-freiburg.de)
  * Copyright (C) 2015 University of Freiburg
  * 
- * This file is part of the ULTIMATE RCFGSerializer plug-in.
+ * This file is part of the ULTIMATE ICFGSerializer plug-in.
  * 
- * The ULTIMATE RCFGSerializer plug-in is free software: you can redistribute it and/or modify
+ * The ULTIMATE ICFGSerializer plug-in is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
  * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * The ULTIMATE RCFGSerializer plug-in is distributed in the hope that it will be useful,
+ * The ULTIMATE ICFGSerializer plug-in is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
  * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with the ULTIMATE RCFGSerializer plug-in. If not, see <http://www.gnu.org/licenses/>.
+ * along with the ULTIMATE ICFGSerializer plug-in. If not, see <http://www.gnu.org/licenses/>.
  * 
  * Additional permission under GNU GPL version 3 section 7:
- * If you modify the ULTIMATE RCFGSerializer plug-in, or any covered work, by linking
+ * If you modify the ULTIMATE ICFGSerializer plug-in, or any covered work, by linking
  * or combining it with Eclipse RCP (or a modified version of Eclipse RCP), 
  * containing parts covered by the terms of the Eclipse Public License, the 
- * licensors of the ULTIMATE RCFGSerializer plug-in grant you additional permission 
+ * licensors of the ULTIMATE ICFGSerializer plug-in grant you additional permission 
  * to convey the resulting work.
  */
 
@@ -47,12 +47,12 @@ import de.uni_freiburg.informatik.ultimate.core.model.services.IUltimateServiceP
 import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.RootNode;
 import de.uni_freiburg.informatik.ultimate.rcfg.serializer.preferences.PreferenceInitializer;
 
-public class RCFGSerializerObserver implements IUnmanagedObserver {
+public class ICFGSerializerObserver implements IUnmanagedObserver {
 
 	private final ILogger mLogger;
 	private final IUltimateServiceProvider mServices;
 
-	public RCFGSerializerObserver(final IUltimateServiceProvider services) {
+	public ICFGSerializerObserver(final IUltimateServiceProvider services) {
 		mServices = services;
 		mLogger = services.getLoggingService().getLogger(Activator.PLUGIN_ID);
 	}
@@ -81,7 +81,7 @@ public class RCFGSerializerObserver implements IUnmanagedObserver {
 			if (writer != null) {
 				final RootNode rootNode = (RootNode) root;
 				final Document template = readTemplate();
-				final RCFGOutput output = new RCFGOutput(writer, template, mLogger);
+				final ICFGOutput output = new ICFGOutput(writer, template, mLogger);
 				output.printRCFG(rootNode);
 				writer.close();
 			}
@@ -138,7 +138,7 @@ public class RCFGSerializerObserver implements IUnmanagedObserver {
 
 		try {
 			filename = mServices.getPreferenceProvider(Activator.PLUGIN_ID)
-					.getString(PreferenceInitializer.RCFG_OUTPUT_FILE_NAME_LABEL);
+					.getString(PreferenceInitializer.ICFG_OUTPUT_FILE_NAME_LABEL);
 			file = new File(path + File.separatorChar + filename);
 			if ((!file.isFile() || !file.canWrite()) && file.exists()) {
 				mLogger.warn("Cannot write to: " + file.getAbsolutePath());

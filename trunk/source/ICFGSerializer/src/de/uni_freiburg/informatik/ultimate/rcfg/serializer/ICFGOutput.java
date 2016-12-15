@@ -25,7 +25,7 @@ import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IcfgE
 import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IcfgLocation;
 import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.RootNode;
 
-public class RCFGOutput {
+public class ICFGOutput {
 	// private static final String LINEBREAK =
 	// System.getProperty("line.separator");
 	/**
@@ -35,7 +35,7 @@ public class RCFGOutput {
 	private final Document mXMLTemplate;
 	private final ILogger mLogger;
 
-	public RCFGOutput(PrintWriter mWriter, Document mXMLTemplate, ILogger mLogger) {
+	public ICFGOutput(PrintWriter mWriter, Document mXMLTemplate, ILogger mLogger) {
 		this.mWriter = mWriter;
 		this.mXMLTemplate = mXMLTemplate;
 		this.mLogger = mLogger;
@@ -64,7 +64,7 @@ public class RCFGOutput {
 			return;
 		}
 
-		RCFGTraverser graph = new RCFGTraverser(root);
+		ICFGTraverser graph = new ICFGTraverser(root);
 		Element xmlNode, xmlEdge;
 		String label, id;
 		int i = 0, j = 0;
