@@ -102,7 +102,7 @@ public class ICFGSerializerObserver implements IUnmanagedObserver {
 		try {
 
 			filepath = mServices.getPreferenceProvider(Activator.PLUGIN_ID)
-					.getString(PreferenceInitializer.TEMPLATE_FILE_LABEL);
+					.getString(PreferenceInitializer.LABEL_TEMPLATE_FILE);
 			file = new File(filepath);
 
 			if (!(file.exists() && file.isFile() && file.canRead())) {
@@ -135,17 +135,17 @@ public class ICFGSerializerObserver implements IUnmanagedObserver {
 		String filename;
 		File file;
 
-		path = mServices.getPreferenceProvider(Activator.PLUGIN_ID).getString(PreferenceInitializer.DUMP_PATH_LABEL);
+		path = mServices.getPreferenceProvider(Activator.PLUGIN_ID).getString(PreferenceInitializer.LABEL_ICFG_OUTPUT_FILE_PATH);
 
 		try {
 			if (mServices.getPreferenceProvider(Activator.PLUGIN_ID)
-					.getBoolean(PreferenceInitializer.USE_SOURCE_FILE_NAME_LABEL)) {
+					.getBoolean(PreferenceInitializer.LABEL_USE_SOURCE)) {
 				filename = root.getPayload().getLocation().getFileName();
 				filename = filename.substring(filename.lastIndexOf(File.separatorChar)).concat(GEXF_EXT);
 				//mLogger.warn("Model does not provide a valid source location, falling back to default dump path...");
 			} else {
 				filename = mServices.getPreferenceProvider(Activator.PLUGIN_ID)
-						.getString(PreferenceInitializer.ICFG_OUTPUT_FILE_NAME_LABEL);
+						.getString(PreferenceInitializer.LABEL_ICFG_OUTPUT_FILE_NAME);
 			}
 			file = new File(path + File.separatorChar + filename);
 			if ((!file.isFile() || !file.canWrite()) && file.exists()) {

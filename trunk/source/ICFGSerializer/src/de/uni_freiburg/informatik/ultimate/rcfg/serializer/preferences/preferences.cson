@@ -1,0 +1,33 @@
+data:
+  [
+    {
+        name: 'TEMPLATE_FILE'
+        label: '"Template:"'
+        default: '"data/template.gexf"'
+        type: "String"
+        tooltip: '"A gexf template. the <nodes> and <edges> tags contained will be populated with the graphs data"'
+        customPrefPage: false
+        choices: null# ['option1','option2','test']
+    }
+    {
+        name: 'ICFG_OUTPUT_FILE_NAME'
+        label: '"ICFG Output file name:"'
+        default: '"icfg.gexf"'
+        type: "String"
+        tooltip: '"The name of the generated output file. this field is ignored, if source file name is used."'
+    }
+    {
+        name: 'USE_SOURCE'
+        label: '"Use the sources file name?"'
+        default: 'false'
+        type: "Boolean"
+        tooltip: '"If checke, the name of the generated output file will match the name of the source file. this field is ignored and the given output file name will be inored."'
+    }
+    {
+        name: 'ICFG_OUTPUT_FILE_PATH'
+        label: '"Dump path:"'
+        default: 'System.getProperty("java.io.tmpdir")'
+        type: "Directory"
+        tooltip: '"Path to the directory where the output file is written."'
+    }
+  ]
