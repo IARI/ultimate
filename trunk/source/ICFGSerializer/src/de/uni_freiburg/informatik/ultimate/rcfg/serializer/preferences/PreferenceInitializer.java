@@ -35,9 +35,11 @@ import de.uni_freiburg.informatik.ultimate.core.model.preferences.UltimatePrefer
 public class PreferenceInitializer extends UltimatePreferenceInitializer {
 
 	public static final String TEMPLATE_FILE_LABEL = "Template:";
-	private static final String TEMPLATE_FILE_DEFAULT = "";
+	private static final String TEMPLATE_FILE_DEFAULT = "data/template.gexf";
 	public static final String ICFG_OUTPUT_FILE_NAME_LABEL = "ICFG Output file name:";
 	private static final String ICFG_OUTPUT_FILE_NAME_DEFAULT = "icfg.gexf";
+	public static final String USE_SOURCE_FILE_NAME_LABEL = "Use the sources file name?";
+	private static final boolean USE_SOURCE_FILE_NAME_DEFAULT = false;
 	public static final String DUMP_PATH_LABEL = "Dump path:";
 	private static final String DUMP_PATH_DEFAULT = System.getProperty("java.io.tmpdir");
 
@@ -51,6 +53,9 @@ public class PreferenceInitializer extends UltimatePreferenceInitializer {
 				new UltimatePreferenceItem<String>(TEMPLATE_FILE_LABEL, TEMPLATE_FILE_DEFAULT, PreferenceType.File),
 				new UltimatePreferenceItem<String>(DUMP_PATH_LABEL, DUMP_PATH_DEFAULT, PreferenceType.Directory),
 				new UltimatePreferenceItem<String>(ICFG_OUTPUT_FILE_NAME_LABEL, ICFG_OUTPUT_FILE_NAME_DEFAULT,
-						PreferenceType.String), };
+						PreferenceType.String), 
+				new UltimatePreferenceItem<Boolean>(USE_SOURCE_FILE_NAME_LABEL, USE_SOURCE_FILE_NAME_DEFAULT,
+						PreferenceType.Boolean), 
+		};
 	}
 }

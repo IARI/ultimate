@@ -49,6 +49,7 @@ import de.uni_freiburg.informatik.ultimate.modelcheckerutils.cfg.structure.IcfgL
 import de.uni_freiburg.informatik.ultimate.rcfg.serializer.preferences.PreferenceInitializer;
 
 public class ICFGSerializerObserver implements IUnmanagedObserver {
+	public static String GEXF_EXT = ".gexf";
 
 	private final ILogger mLogger;
 	private final IUltimateServiceProvider mServices;
@@ -77,7 +78,7 @@ public class ICFGSerializerObserver implements IUnmanagedObserver {
 	public boolean process(IElement root) throws Throwable {
 		if (root instanceof IIcfg) {
 
-			final PrintWriter writer = openTempFile();
+			final PrintWriter writer = openTempFile(root);
 			if (writer != null) {
 				final IIcfg<IcfgLocation> rootNode = (IIcfg<IcfgLocation>) root;
 				final Document template = readTemplate();
@@ -128,7 +129,7 @@ public class ICFGSerializerObserver implements IUnmanagedObserver {
 		}
 	}
 
-	private PrintWriter openTempFile() {
+	private PrintWriter openTempFile(IElement root) {
 
 		String path;
 		String filename;
@@ -137,8 +138,15 @@ public class ICFGSerializerObserver implements IUnmanagedObserver {
 		path = mServices.getPreferenceProvider(Activator.PLUGIN_ID).getString(PreferenceInitializer.DUMP_PATH_LABEL);
 
 		try {
-			filename = mServices.getPreferenceProvider(Activator.PLUGIN_ID)
-					.getString(PreferenceInitializer.ICFG_OUTPUT_FILE_NAME_LABEL);
+			if (mServices.getPreferenceProvider(Activator.PLUGIN_ID)
+					.getBoolean(PreferenceInitializer.USE_SOURCE_FILE_NAME_LABEL)) {
+				filename = root.getPayload().getLocation().getFileName();
+				filename = filename.substring(filename.lastIndexOf(File.separatorChar)).concat(GEXF_EXT);
+				//mLogger.warn("Model does not provide a valid source location, falling back to default dump path...");
+			} else {
+				filename = mServices.getPreferenceProvider(Activator.PLUGIN_ID)
+						.getString(PreferenceInitializer.ICFG_OUTPUT_FILE_NAME_LABEL);
+			}
 			file = new File(path + File.separatorChar + filename);
 			if ((!file.isFile() || !file.canWrite()) && file.exists()) {
 				mLogger.warn("Cannot write to: " + file.getAbsolutePath());
