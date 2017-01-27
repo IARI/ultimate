@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: UltimateInteractive
+Bundle-SymbolicName: de.uni_freiburg.informatik.ultimate.interactive;singleton:=true
+Bundle-Version: 0.0.1
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: Library-UltimateCore,
+ UltimateCore,
+ Library-UltimateUtil
+Export-Package: de.uni_freiburg.informatik.ultimate.interactive

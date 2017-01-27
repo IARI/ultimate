@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Library-GraphVR
 Bundle-SymbolicName: Library-GraphVR
-Bundle-Version: 1.5.0
+Bundle-Version: 0.0.1
 Require-Bundle: Library-UltimateCore,
  Library-Protobuf
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

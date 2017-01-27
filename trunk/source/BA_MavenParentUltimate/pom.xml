@@ -275,6 +275,7 @@
 		<module>../ASTBuilder</module>
 		<module>../JungVisualization</module>
 		<module>../UltimateCLI</module>
+		<module>../UltimateInteractive</module>
 		<module>../GUIGeneratedPreferencePages</module>
 		<module>../GUILoggingWindow</module>
 		<module>../LassoRanker</module>
@@ -306,6 +307,8 @@
 		<module>../Library-UltimateModel</module>
 		<module>../Library-ApacheCommonsCLI</module>
 		<module>../Library-IcfgTransformer</module>
+		<module>../Library-GraphVR</module>
+		<module>../Library-Protobuf</module>
 		<module>../IcfgTransformation</module>
 		<module>../BuchiProgramProduct</module>
 		<module>../LTL2aut</module>
